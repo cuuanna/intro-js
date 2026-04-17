@@ -42,38 +42,43 @@ const account = {
 };
 
 function atm() {
-  const message = parseFloat(
-    prompt("Select a choice 1.) See balance 2.) Make a deposit 3.) Make a withdrawal 4.) Get account name 5.) Exit")
-  );
+  let running = true;
 
-  if (isNaN(message)) {
-    account.accountError();
-    return;
-  }
+  while (running) {
+    const message = parseFloat(
+      prompt("Select a choice 1.) See balance 2.) Make a deposit 3.) Make a withdrawal 4.) Get account name 5.) Exit")
+    );
 
-  if (!isNaN(message) && (message < 1 || message > 5)) {
-    account.accountError();
-    return;
-  }
+    if (isNaN(message)) {
+      account.accountError();
+      continue;
+    }
 
-  switch (message) {
-    case 1:
-      account.getBalance();
-      break;
-    case 2:
-      const deposit = parseFloat(prompt("Enter amount to deposit:"));
-      account.deposit(deposit);
-      break;
-    case 3:
-      const withdrawal = parseFloat(prompt("Enter amount to withdraw:"));
-      account.withdrawal(withdrawal);
-      break;
-    case 4:
-      account.getAccountName();
-      break;
-    case 5:
-      account.exitAccount();
-      break;
+    if (message < 1 || message > 5) {
+      account.accountError();
+      continue;
+    }
+
+    switch (message) {
+      case 1:
+        account.getBalance();
+        break;
+      case 2:
+        const deposit = parseFloat(prompt("Enter amount to deposit:"));
+        account.deposit(deposit);
+        break;
+      case 3:
+        const withdrawal = parseFloat(prompt("Enter amount to withdraw:"));
+        account.withdrawal(withdrawal);
+        break;
+      case 4:
+        account.getAccountName();
+        break;
+      case 5:
+        account.exitAccount();
+        running = false;
+        break;
+    }
   }
 }
 
